@@ -1,0 +1,4 @@
+.DS_Store
+beholder-cli/node_modules/*
+beholder-cli/data.json
+images/*
