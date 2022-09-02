@@ -1,5 +1,6 @@
 const fs = require('fs');
 const axios = require('axios');
+import * as tf from "@tensorflow/tfjs";
 
 const datas = require("./data.json");
 
@@ -12,7 +13,7 @@ const downloadImage = (url, imageName) =>
       new Promise((resolve, reject) => {
         response.data
           .pipe(fs.createWriteStream(`../images/${imageName}`))
-          .on('finish', () => resolve())
+          .on('finish', () => resolve(true))
           .on('error', e => reject(e));
       }),
   );
