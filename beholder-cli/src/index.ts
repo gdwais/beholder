@@ -1,36 +1,18 @@
-const fs = require('fs');
-const axios = require('axios');
-import * as tf from "@tensorflow/tfjs";
+import { tensor } from "@tensorflow/tfjs";
+import { command, run, string, positional } from "cmd-ts";
 
-const datas = require("./data.json");
+import { EvaluationManager } from "./managers/evaluation.manager";
 
-const downloadImage = (url, imageName) =>
-  axios({
-    url,
-    responseType: 'stream',
-  }).then(
-    response =>
-      new Promise((resolve, reject) => {
-        response.data
-          .pipe(fs.createWriteStream(`../images/${imageName}`))
-          .on('finish', () => resolve(true))
-          .on('error', e => reject(e));
-      }),
-  );
+const evaluationManager = new EvaluationManager();
 
-(async () => {
+const app = command({
+  name: "beholder-cli",
+  args: {
+    processArg: positional({ type: string, displayName: "process" })
+  },
+  handler: async ({ processArg }) => {
+    await evaluationManager.run();
+  },
+});
 
-  for(const data of datas) {
-    try {
-      const result = await downloadImage(data.image, `${data.mint}.png`);
-      
-      if (result && result.error) {
-        console.error(data.mint, result.error);
-      }
-    } catch (err) {
-      
-      console.error(err);
-    }
-
-  }
-})();
+run(app, process.argv.slice(2));

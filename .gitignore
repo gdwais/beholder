@@ -1,8 +1,12 @@
 .env
 .DS_Store
+node_modules/*
+
 beholder-cli/node_modules/*
 beholder-cli/data.json
 beholder-cli/model/*
+beholder-cli/dist/*
+
 images/*
 
 beholder-api/node_modules/*

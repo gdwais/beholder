@@ -26,6 +26,7 @@
     "fastify-plugin": "^3.0.0",
     "nodemon": "^2.0.19",
     "prettier": "^2.7.1",
+    "prisma": "^4.3.1",
     "ts-node": "^10.9.1",
     "tslint": "^5.20.1",
     "tslint-config-airbnb": "^5.11.2",

@@ -9,3 +9,35 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum NftTrait {
+  Anime
+  Cartoon
+  Degen
+  Modern
+  Pixel
+  Scifi
+  Token
+}
+
+model Nft {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  mint      String   @unique
+  image     String
+
+  traits Trait[]
+}
+
+model Trait {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  mint String
+  nft  Nft    @relation(references: [mint], fields: [mint])
+
+  trait      NftTrait
+  percentage Float
+}
