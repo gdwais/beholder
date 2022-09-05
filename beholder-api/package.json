@@ -10,9 +10,7 @@
     "start": "node dist/index.js",
     "build": "tsc -p tsconfig.json",
     "dev": "cross-env NODE_ENV=development nodemon server.ts",
-    "prebuild": "yarn lint",
-    "start:watch": "nodemon",
-    "lint": "tslint -c tslint.json -p tsconfig.json --fix"
+    "start:watch": "nodemon"
   },
   "keywords": [],
   "author": "",
@@ -28,9 +26,6 @@
     "prettier": "^2.7.1",
     "prisma": "^4.3.1",
     "ts-node": "^10.9.1",
-    "tslint": "^5.20.1",
-    "tslint-config-airbnb": "^5.11.2",
-    "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.8.2"
   },
   "devDependencies": {

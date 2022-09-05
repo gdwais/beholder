@@ -1,18 +1,16 @@
 {
-    "compilerOptions": {
-      "lib": ["esnext"],
-      "module": "commonjs",
-      "target": "es2020",
-      "outDir": "dist",
-      "sourceMap": true,
-      "strict": true,
-      "allowJs": true,
-      "esModuleInterop": true,
-      "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true,
-      "resolveJsonModule": true,
-      
-    },
-    "include": ["src/**/*", "../beholder-core/**/*"]
-  }
-  
+  "compilerOptions": {
+    "lib": ["esnext"],
+    "module": "commonjs",
+    "target": "es2020",
+    "outDir": "dist",
+    "sourceMap": true,
+    "strict": true,
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*"]
+}

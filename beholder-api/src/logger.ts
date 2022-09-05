@@ -1,4 +1,4 @@
-import pkg from "../../package.json";
+import pkg from "../package.json";
 
 export class Logger {
   public log(message: string, data?: any) {

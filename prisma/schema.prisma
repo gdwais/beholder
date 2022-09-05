@@ -18,6 +18,8 @@ enum NftTrait {
   Pixel
   Scifi
   Token
+
+  @@map("nft_trait_type")
 }
 
 model Nft {
@@ -28,6 +30,8 @@ model Nft {
   image     String
 
   traits Trait[]
+
+  @@map("nfts")
 }
 
 model Trait {
@@ -40,4 +44,6 @@ model Trait {
 
   trait      NftTrait
   percentage Float
+
+  @@map("traits")
 }

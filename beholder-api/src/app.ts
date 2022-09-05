@@ -1,30 +1,45 @@
-import fastify, { FastifyInstance, FastifyRegisterOptions, FastifyRequest } from 'fastify';
-import { IncomingMessage, Server, ServerResponse } from 'http';
+import { PrismaClient } from "@prisma/client";
+import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { IncomingMessage, Server, ServerResponse } from "http";
+import { Logger } from "./logger";
+import { Repository } from "./repository";
+import { Service } from "./service";
 
-const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({logger: true});
+const db = new PrismaClient();
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({ logger: true });
 
-type PredictionContract = {
-    mint: string;
-    image: string;
-    results: Float32Array;
+interface PredictionContract {
+  mint: string;
+  image: string;
+  results: Float32Array;
 }
 
+const repo = new Repository(db);
 
-
+const service = new Service(new Logger(), repo);
 
 function build() {
 
-    server.post('/save-prediction', async (req: FastifyRequest<{Body: PredictionContract}>, reply: FastifyReply) => {
-        const data = reply.body;
+  server.post("/save-prediction", async (req: FastifyRequest<{Body: PredictionContract}>, reply: FastifyReply) => {
+    const { mint, image, results } = req.body;
 
+    const result = await service.savePrediction(mint, image, results);
 
-    });
+    if (result === "success") {
+      reply.statusCode = 200;
+      reply.send();
+    }
 
-    server.get('/ping', async (req, reply) => {
-        return 'pong\n';
-    });
+    reply.statusCode = 500;
+    reply.send(result);
 
-    return server;
+  });
+
+  server.get("/ping", async (req, reply) => {
+    return "pong\n";
+  });
+
+  return server;
 }
 
 export default build;
