@@ -6,6 +6,7 @@ beholder-cli/node_modules/*
 beholder-cli/data.json
 beholder-cli/model/*
 beholder-cli/dist/*
+*.csv
 
 images/*
 

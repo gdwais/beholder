@@ -28,8 +28,8 @@ model Nft {
   updatedAt DateTime @updatedAt @map("updated_at")
   mint      String   @unique
   image     String
-
-  traits Trait[]
+  name      String
+  traits    Trait[]
 
   @@map("nfts")
 }

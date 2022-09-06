@@ -5,6 +5,7 @@ import sharp from "sharp";
 import { decodeImage } from "@tensorflow/tfjs-node/dist/image";
 
 export class PredictionService {
+  
   async loadModel() {
     return await tf.loadGraphModel(`file://model/model.json`);
   }
