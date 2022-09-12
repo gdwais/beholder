@@ -1,9 +1,6 @@
 import { Repository } from "./repository";
-import { TTrait } from "./types";
+import { TTrait, TNft } from "./types";
 import { Logger } from "./logger";
-
-
-
 
 export class Service {
   private logger: Logger;
@@ -24,7 +21,7 @@ export class Service {
     this.repo = repo;
   }
 
-  public async getAll() {
+  public async getAll(): Promise<TNft[]> {
     return await this.repo.getAllNfts();
   }
 

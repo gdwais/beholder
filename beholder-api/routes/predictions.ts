@@ -4,6 +4,7 @@ import { Repository } from '../repository';
 import { Service } from '../service';
 import db from "../db";
 import { REPL_MODE_SLOPPY } from 'repl';
+import { TNft } from '../types';
 
 export type PredictionContract = {
     mint: string;
@@ -17,7 +18,7 @@ const predictions = (fastify: FastifyInstance, _: any, done: () => void) => {
     const service = new Service(new Logger(), new Repository(db));
 
     fastify.get("", async (request: FastifyRequest, reply) => {
-        const result = await service.getAll();
+        const result: TNft[] = await service.getAll();
         reply.send(result);
     });
 

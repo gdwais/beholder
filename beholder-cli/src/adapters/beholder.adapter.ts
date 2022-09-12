@@ -10,7 +10,7 @@ export type PredictionContract = {
 
 export class BeholderAdapter {
     
-    private url: string = 'http://localhost:3000/api';
+    private url: string = 'http://localhost:3005/api';
 
     async getPong() {
         const response = await axios.get(`${this.url}/ping`);
