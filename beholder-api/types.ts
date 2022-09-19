@@ -10,4 +10,5 @@ export interface TNft {
   mint: string;
   name: string;
   image: string;
+  traits: TTrait[];
 }

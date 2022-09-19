@@ -12,6 +12,24 @@ export class Repository {
     return await this.db.nft.findMany({ include: { traits: true } });
   }
 
+  public async getTopNftsByTrait(trait: NftTrait): Promise<TNft[]> {
+    const traits = await this.db.trait.findMany({
+      where: {
+        trait,
+      },
+      include: {
+        nft: {
+          include: {
+            traits: true,
+          },
+        },
+      },
+      take: 40,
+    });
+
+    return traits.map((t) => t.nft);
+  }
+
   public async getByMint(mint: string) {
     return await this.db.nft.findUnique({
       where: { mint },
@@ -19,7 +37,16 @@ export class Repository {
     });
   }
 
-  public async upsertNft(mint: string, name: string, image: string): Promise<Nft | null> {
+  public async getTraits() {
+    const result = await this.db.$queryRaw`select distinct trait from traits;`;
+    return result;
+  }
+
+  public async upsertNft(
+    mint: string,
+    name: string,
+    image: string
+  ): Promise<Nft | null> {
     return await this.db.nft.upsert({
       where: { mint },
       create: { mint, name, image },

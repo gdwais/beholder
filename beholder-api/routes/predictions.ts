@@ -3,7 +3,6 @@ import { Logger } from '../logger';
 import { Repository } from '../repository';
 import { Service } from '../service';
 import db from "../db";
-import { REPL_MODE_SLOPPY } from 'repl';
 import { TNft } from '../types';
 
 export type PredictionContract = {
@@ -13,20 +12,27 @@ export type PredictionContract = {
     results: Float32Array;
 }
 
+
 const predictions = (fastify: FastifyInstance, _: any, done: () => void) => {
-
+    
     const service = new Service(new Logger(), new Repository(db));
-
+    
     fastify.get("", async (request: FastifyRequest, reply) => {
         const result: TNft[] = await service.getAll();
         reply.send(result);
     });
 
-    fastify.get("/:mint", async (request: FastifyRequest<{Params: { mint: string }}>, reply) => {
-        const { mint } = request.params;
-        const result = await service.getByMint(mint);
-        reply.send(result);
-    });
+    // fastify.get("/:trait", async (request: FastifyRequest<{ Params: { trait: string }}>, reply) => {
+    //     const { trait } = request.params;
+    //     const result: TNft[] = await service.getTopNftsByTrait(trait);
+    //     reply.send(result);
+    // });
+
+    // fastify.get("/:mint", async (request: FastifyRequest<{Params: { mint: string }}>, reply) => {
+    //     const { mint } = request.params;
+    //     const result = await service.getByMint(mint);
+    //     reply.send(result);
+    // });
 
     fastify.post("/save", async (request: FastifyRequest<{ Body: PredictionContract}>, reply) => {
         
@@ -42,7 +48,6 @@ const predictions = (fastify: FastifyInstance, _: any, done: () => void) => {
         reply.send({
             status: result
         });
-    
     });
     
     done();

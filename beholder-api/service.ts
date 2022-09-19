@@ -1,6 +1,7 @@
 import { Repository } from "./repository";
 import { TTrait, TNft } from "./types";
 import { Logger } from "./logger";
+import { NftTrait } from "@prisma/client";
 
 export class Service {
   private logger: Logger;
@@ -25,8 +26,16 @@ export class Service {
     return await this.repo.getAllNfts();
   }
 
+  public async getTopNftsByTrait(trait: string) {
+    return await this.repo.getTopNftsByTrait(trait as NftTrait);
+  }
+
   public async getByMint(mint: string) {
     return await this.repo.getByMint(mint);
+  }
+
+  public async getTraits() {
+    return await this.repo.getTraits();
   }
 
   public async savePrediction(
@@ -58,6 +67,5 @@ export class Service {
 
     return "success";
   }
-
   
 }
