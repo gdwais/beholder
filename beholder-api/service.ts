@@ -27,7 +27,8 @@ export class Service {
   }
 
   public async getTopNftsByTrait(trait: string) {
-    return await this.repo.getTopNftsByTrait(trait as NftTrait);
+    const topResults = await this.repo.getTopNftsByTrait(trait as NftTrait);
+    return await this.repo.getByMints(topResults.map(r => r.mint));
   }
 
   public async getByMint(mint: string) {

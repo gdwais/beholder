@@ -1,12 +1,11 @@
 import { ReactElement, useEffect, useRef } from "react";
-import { Card, CardHeader, CardContent } from "@mui/material";
+import { Card, CardHeader, CardContent, Paper } from "@mui/material";
 
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import { Trait } from "../types";
 
 type ImageCardProps = {
-  queryMore: () => void;
   mint: string;
   image: string;
   name: string;
@@ -18,80 +17,51 @@ export const ImageCard = ({
   image,
   name,
   traits,
-  queryMore,
 }: ImageCardProps) => {
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const element = ref.current;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          const targetId = entry.target.id;
-
-          if (+targetId % 8 === 0) {
-            queryMore();
-          }
-        }
-      },
-      {
-        root: null, //viewport
-        rootMargin: "0px",
-        threshold: 0.1, //this means that the element get detected when 10% of the card is visible
-      }
-    );
-
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
+  
   return (
     <section key={mint}>
+      {/* <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}> */}
       <Card
         sx={{
-          width: 300,
-          marginBottom: "12px",
+          width: 150,
+          marginBottom: "6px",
           boxShadow: "",
           borderRadius: "4px",
-          background: "black",
+          background: "white",
         }}
-        className="bg-black text-white"
+        className="bg-white text-black"
       >
         <CardHeader
-          sx={{ padding: "12px" }}
           title={
-            <span className="text-base font-bold font-sofiaPro text-white">{name}</span>
+            <span className="text-base font-bold font-sofiaPro text-black">{name}</span>
           }
         />
         <section
           className="grid grid-cols-1 justify-items-center items-center mx-auto font-sofiaPro"
-          style={{ width: "300px", minHeight: "223px" }}
+          style={{ width: "150px", minHeight: "112px" }}
         >
           <LazyLoadImage
-            key={mint}
+            key={`ImageCardImage-${mint}`}
             alt={name}
-            className="rounded-lg cursor-pointer hover:bg-purpleMP"
+            className="rounded-lg cursor-pointer"
             src={image}
-            style={{ maxHeight: "225px", maxWidth: "auto" }}
+            style={{ maxHeight: "112px", maxWidth: "auto" }}
           />
         </section>
         <CardContent sx={{ padding: "12px" }}>
           <span className="">
             <ul>
               {traits.map((trait) => (
-                <li className="text-xs text-white">
-                  {trait.trait} : {trait.percentage.toString()}
+                <li className="text-xs text-black">
+                  {trait.trait} : {trait.percentage.toString().substring(0, 4)}
                 </li>
               ))}
             </ul>
           </span>
         </CardContent>
       </Card>
+      
     </section>
   );
 };

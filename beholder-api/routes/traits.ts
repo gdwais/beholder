@@ -8,7 +8,7 @@ const traitsRoute = (fastify: FastifyInstance, _: any, done: () => void) => {
 
     const service = new Service(new Logger(), new Repository(db));
 
-    fastify.get("", async (request: FastifyRequest, reply) => {
+    fastify.get("/", async (request: FastifyRequest, reply) => {
         const result = await service.getTraits();
         reply.send(result);
     });

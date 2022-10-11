@@ -12,22 +12,15 @@ export class Repository {
     return await this.db.nft.findMany({ include: { traits: true } });
   }
 
-  public async getTopNftsByTrait(trait: NftTrait): Promise<TNft[]> {
-    const traits = await this.db.trait.findMany({
-      where: {
-        trait,
-      },
-      include: {
-        nft: {
-          include: {
-            traits: true,
-          },
-        },
-      },
-      take: 40,
-    });
+  public async getTopNftsByTrait(trait: NftTrait): Promise<{mint: string; percentage: number;}[]> {
+    const topResults: {mint: string; percentage: number}[] = await this.db.$queryRaw`
+          SELECT DISTINCT mint, percentage
+      FROM traits
+      WHERE trait = ${trait}
+      ORDER BY percentage DESC
+      LIMIT 100;`;
 
-    return traits.map((t) => t.nft);
+    return topResults;
   }
 
   public async getByMint(mint: string) {
@@ -35,6 +28,16 @@ export class Repository {
       where: { mint },
       include: { traits: true },
     });
+  }
+
+  public async getByMints(mints: string[]): Promise<TNft[]> {
+    return await this.db.nft.findMany({ 
+      where: {
+        mint: {
+          in: mints
+        }
+      }, include: { traits: true }
+    })
   }
 
   public async getTraits() {

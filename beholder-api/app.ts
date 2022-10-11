@@ -25,7 +25,7 @@ const buildApp = async (envFile: string): Promise<FastifyInstance> => {
 
   app.register(fastifyStatic, {
     root: path.join(process.cwd(), "../client/build"),
-    prefix: "/",
+    prefix: "/",  
 });
 
   app.register(Cors, {

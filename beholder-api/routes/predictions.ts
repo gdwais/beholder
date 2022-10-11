@@ -22,11 +22,11 @@ const predictions = (fastify: FastifyInstance, _: any, done: () => void) => {
         reply.send(result);
     });
 
-    // fastify.get("/:trait", async (request: FastifyRequest<{ Params: { trait: string }}>, reply) => {
-    //     const { trait } = request.params;
-    //     const result: TNft[] = await service.getTopNftsByTrait(trait);
-    //     reply.send(result);
-    // });
+    fastify.get("/:trait", async (request: FastifyRequest<{ Params: { trait: string }}>, reply) => {
+        const { trait } = request.params;
+        const result: TNft[] = await service.getTopNftsByTrait(trait);
+        reply.send(result);
+    });
 
     // fastify.get("/:mint", async (request: FastifyRequest<{Params: { mint: string }}>, reply) => {
     //     const { mint } = request.params;
