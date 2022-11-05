@@ -10,7 +10,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum NftTrait {
+enum AssetTraitType {
   Anime
   Cartoon
   Degen
@@ -19,31 +19,69 @@ enum NftTrait {
   Scifi
   Token
 
-  @@map("nft_trait_type")
+  @@map("asset_trait_type")
 }
 
-model Nft {
+model Wallet {
+  id String @id @default(uuid())
+  walletId String @unique @map("wallet_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  evaluatedAssets EvaluatedAsset[]
+  @@map("wallets")
+}
+
+model EvaluatedAsset {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  mint String
+  asset Asset @relation(references: [mint], fields: [mint])
+
+  walletId String @map("wallet_id")
+  wallet Wallet @relation(references: [id], fields: [walletId])
+
+  traits EvaluatedAssetTrait[]
+
+  @@map("evaluated_assets")
+}
+
+model EvaluatedAssetTrait {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  value String
+
+  evaluatedAssetId String @map("evaluated_asset_id")
+  evaluatedAsset EvaluatedAsset @relation(references: [id], fields: [evaluatedAssetId])
+
+  @@map("evaluated_asset_traits")
+}
+
+model Asset {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
   mint      String   @unique
   image     String
   name      String
-  traits    Trait[]
+  traits    AssetTrait[]
+  evaluatedAsset EvaluatedAsset[]
 
-  @@map("nfts")
+  @@map("assets")
 }
 
-model Trait {
+model AssetTrait {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   mint String
-  nft  Nft    @relation(references: [mint], fields: [mint])
+  asset  Asset    @relation(references: [mint], fields: [mint])
 
-  trait      NftTrait
+  traitType      AssetTraitType
   percentage Float
 
-  @@map("traits")
+  @@map("asset_traits")
 }
