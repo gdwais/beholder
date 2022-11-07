@@ -1,5 +1,3 @@
 import { ImageCard } from "./ImageCard";
 
-export {
-    ImageCard
-}
+export { ImageCard };

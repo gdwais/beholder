@@ -1,8 +1,6 @@
-import fastify, {
-  FastifyInstance
-} from "fastify";
+import fastify, { FastifyInstance } from "fastify";
 
-const fastifyStatic = require("fastify-static")
+const fastifyStatic = require("fastify-static");
 
 import path from "path";
 
@@ -11,7 +9,6 @@ const Cors = require("fastify-cors");
 // const Cors = require("fastify-cors")
 
 import ping from "./routes/ping";
-import predictions from "./routes/predictions";
 import traitsRoute from "./routes/traits";
 
 import dotenv from "dotenv";
@@ -25,15 +22,14 @@ const buildApp = async (envFile: string): Promise<FastifyInstance> => {
 
   app.register(fastifyStatic, {
     root: path.join(process.cwd(), "../client/build"),
-    prefix: "/",  
-});
+    prefix: "/",
+  });
 
   app.register(Cors, {
-    origin: "*"
+    origin: "*",
   });
 
   app.register(ping, { prefix: "/api/ping" });
-  app.register(predictions, { prefix: "/api/predictions" });
   app.register(traitsRoute, { prefix: "/api/traits" });
   const port = process.env.PORT || "3005";
 
@@ -49,7 +45,7 @@ const buildApp = async (envFile: string): Promise<FastifyInstance> => {
   return app;
 };
 
-process.on('exit', (code) => {
+process.on("exit", (code) => {
   console.log(`About to exit with code: ${code}`);
 });
 

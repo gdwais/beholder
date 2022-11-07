@@ -6,7 +6,12 @@ import { EvaluationManager } from "./managers/evaluation.manager";
 import { FileService } from "./services/file.service";
 import { PredictionService } from "./services/prediction.service";
 
-const evaluationManager = new EvaluationManager(new Logger(), new PredictionService(), new FileService(), new BeholderAdapter());
+const evaluationManager = new EvaluationManager(
+  new Logger(),
+  new PredictionService(),
+  new FileService(),
+  new BeholderAdapter()
+);
 
 const app = command({
   name: "beholder-cli",

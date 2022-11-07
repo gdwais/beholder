@@ -10,18 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum AssetTraitType {
-  Anime
-  Cartoon
-  Degen
-  Modern
-  Pixel
-  Scifi
-  Token
-
-  @@map("asset_trait_type")
-}
-
 model Wallet {
   id String @id @default(uuid())
   walletId String @unique @map("wallet_id")
@@ -32,6 +20,7 @@ model Wallet {
   @@map("wallets")
 }
 
+//record created after user evaluates
 model EvaluatedAsset {
   id String @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
@@ -66,13 +55,14 @@ model Asset {
   mint      String   @unique
   image     String
   name      String
-  traits    AssetTrait[]
-  evaluatedAsset EvaluatedAsset[]
+  
+  evaluatedAssets EvaluatedAsset[]
+  processedTraits ProcessedAssetTrait[]
 
   @@map("assets")
 }
 
-model AssetTrait {
+model ProcessedAssetTrait {
   id        String   @id @default(uuid())
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -80,8 +70,10 @@ model AssetTrait {
   mint String
   asset  Asset    @relation(references: [mint], fields: [mint])
 
-  traitType      AssetTraitType
+  trait String
   percentage Float
 
-  @@map("asset_traits")
+  @@map("processed_asset_traits")
 }
+
+

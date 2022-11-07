@@ -1,5 +1,3 @@
-
-
 ```
 SELECT *
 FROM (SELECT ac.id, ac.name, COUNT(a.*) AS count

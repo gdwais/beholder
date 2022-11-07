@@ -32,8 +32,9 @@ export class EvaluationManager {
     this.logger.log(`data loaded - evaluating ${datas.length} record(s)`);
 
     for (const data of datas) {
-      
-      const results = await this.predictionService.predict(data.image as string);
+      const results = await this.predictionService.predict(
+        data.image as string
+      );
       if (results && results.length > 0) {
         try {
           const status = await this.beholderAdapter.savePredictionData({

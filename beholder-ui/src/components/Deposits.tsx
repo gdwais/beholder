@@ -1,7 +1,7 @@
-import * as React from 'react';
-import Link from '@mui/material/Link';
-import Typography from '@mui/material/Typography';
-import Title from './Title';
+import * as React from "react";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
+import Title from "./Title";
 
 function preventDefault(event: React.MouseEvent) {
   event.preventDefault();
@@ -18,12 +18,12 @@ const Deposits = () => {
         on 15 March, 2019
       </Typography>
       <div>
-        <Link color="primary" href="#" onClick={preventDefault}>1
-          View balance
+        <Link color="primary" href="#" onClick={preventDefault}>
+          1 View balance
         </Link>
       </div>
     </>
   );
-}
+};
 
 export default Deposits;

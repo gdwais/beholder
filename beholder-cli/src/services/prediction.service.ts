@@ -1,11 +1,10 @@
 import * as tf from "@tensorflow/tfjs";
-require('@tensorflow/tfjs-node');
+require("@tensorflow/tfjs-node");
 import axios from "axios";
 import sharp from "sharp";
 import { decodeImage } from "@tensorflow/tfjs-node/dist/image";
 
 export class PredictionService {
-  
   async loadModel() {
     return await tf.loadGraphModel(`file://model/model.json`);
   }

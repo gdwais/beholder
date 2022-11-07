@@ -1,14 +1,21 @@
-import { NftTrait } from "@prisma/client";
+import {
+  ProcessedAssetTrait,
+  Asset,
+  EvaluatedAsset,
+  EvaluatedAssetTrait,
+  Wallet,
+} from "@prisma/client";
 
-export interface TTrait {
-  mint: string;
-  trait: NftTrait;
-  percentage: number;
-}
+export type ProcessedAsset = Asset & {
+  processedTraits: ProcessedAssetTrait[];
+};
 
-export interface TNft {
-  mint: string;
-  name: string;
-  image: string;
-  traits: TTrait[];
-}
+export type ExpandedEvaluatedAsset = EvaluatedAsset & {
+  wallet: Wallet;
+  traits: EvaluatedAssetTrait[];
+};
+
+export type ExpandedAsset = Asset & {
+  processedTraits: ProcessedAssetTrait[];
+  evaluatedAssets: ExpandedEvaluatedAsset[];
+};

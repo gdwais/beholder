@@ -12,13 +12,7 @@ type ImageCardProps = {
   traits: Trait[];
 };
 
-export const ImageCard = ({
-  mint,
-  image,
-  name,
-  traits,
-}: ImageCardProps) => {
-  
+export const ImageCard = ({ mint, image, name, traits }: ImageCardProps) => {
   return (
     <section key={mint}>
       {/* <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}> */}
@@ -34,7 +28,9 @@ export const ImageCard = ({
       >
         <CardHeader
           title={
-            <span className="text-base font-bold font-sofiaPro text-black">{name}</span>
+            <span className="text-base font-bold font-sofiaPro text-black">
+              {name}
+            </span>
           }
         />
         <section
@@ -61,7 +57,6 @@ export const ImageCard = ({
           </span>
         </CardContent>
       </Card>
-      
     </section>
   );
 };

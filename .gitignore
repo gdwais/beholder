@@ -1,4 +1,6 @@
+
 .env
+.env.test
 .DS_Store
 node_modules/*
 
@@ -7,6 +9,7 @@ beholder-cli/data.json
 beholder-cli/model/*
 beholder-cli/dist/*
 *.csv
+
 
 images/*
 
