@@ -1,10 +1,12 @@
 import {
   ProcessedAssetTrait,
-  Asset,
+  Asset as PrismaAsset,
   EvaluatedAsset,
   EvaluatedAssetTrait,
   Wallet,
 } from "@prisma/client";
+
+export type Asset = PrismaAsset;
 
 export type ProcessedAsset = Asset & {
   processedTraits: ProcessedAssetTrait[];

@@ -27,4 +27,34 @@ export class AssetService {
   public async getTraits() {
     return await this.repo.getTraits();
   }
+
+  public async getRandom(walletId: string): Promise<ExpandedAsset | undefined> {
+    const mint = await this.repo.getRandomAssetForEvaluator(walletId);
+    if (mint) {
+      return await this.repo.getByMint(mint);
+    }
+
+    return;
+  }
+
+  public async saveEvaluationAsset(
+    mint: string,
+    walletId: string,
+    evaluationTraits: string[]
+  ): Promise<void> {
+    await this.repo.deleteEvaluationAsset(mint, walletId);
+
+    const evaluationAsset = await this.repo.saveEvaluationAsset(mint, walletId);
+
+    if (evaluationTraits.length > 0) {
+      const data = evaluationTraits.map((trait) => {
+        return {
+          evaluatedAssetId: evaluationAsset.id,
+          value: trait,
+        };
+      });
+
+      await this.repo.saveEvaluationAssetTraits(data);
+    }
+  }
 }

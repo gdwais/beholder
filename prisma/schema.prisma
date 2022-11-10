@@ -33,6 +33,8 @@ model EvaluatedAsset {
 
   traits EvaluatedAssetTrait[]
 
+  @@unique([mint, walletId])
+
   @@map("evaluated_assets")
 }
 

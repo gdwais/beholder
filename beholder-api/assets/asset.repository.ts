@@ -33,25 +33,25 @@ export class AssetRepository {
     return topResults;
   }
 
-  public async getByMint(mint: string) {
-    return await this.db.asset.findUnique({
+  public async getByMint(mint: string): Promise<ExpandedAsset | undefined> {
+    return (await this.db.asset.findUnique({
       where: { mint },
       include: {
         processedTraits: true,
         evaluatedAssets: true,
       },
-    });
+    })) as ExpandedAsset;
   }
 
-  public async getByMints(mints: string[]): Promise<Asset[]> {
-    return await this.db.asset.findMany({
+  public async getByMints(mints: string[]): Promise<ExpandedAsset[]> {
+    return (await this.db.asset.findMany({
       where: {
         mint: {
           in: mints,
         },
       },
-      include: { processedTraits: true },
-    });
+      include: { processedTraits: true, evaluatedAssets: true },
+    })) as ExpandedAsset[];
   }
 
   public async getTraits(): Promise<string[]> {
@@ -59,5 +59,49 @@ export class AssetRepository {
       .$queryRaw`select distinct trait from processed_asset_traits;`;
 
     return result.map((t) => t.trait);
+  }
+
+  public async getRandomAssetForEvaluator(
+    walletId: string
+  ): Promise<string | undefined> {
+    const result: { mint: string }[] = await this.db.$queryRaw<
+      { mint: string }[]
+    >`SELECT mint
+      FROM assets
+      WHERE mint NOT IN (SELECT mint FROM evaluated_asset_traits WHERE wallet_id = ${walletId})
+      ORDER BY RANDOM()
+      LIMIT 1;`;
+
+    if (result.length > 0) {
+      return result[0].mint;
+    }
+
+    return;
+  }
+
+  public async deleteEvaluationAsset(mint: string, walletId: string) {
+    await this.db.evaluatedAsset.delete({
+      where: {
+        mint_walletId: {
+          walletId,
+          mint,
+        },
+      },
+    });
+  }
+
+  public async saveEvaluationAsset(mint: string, walletId: string) {
+    return await this.db.evaluatedAsset.create({
+      data: {
+        walletId,
+        mint,
+      },
+    });
+  }
+
+  public async saveEvaluationAssetTraits(
+    data: { evaluatedAssetId: string; value: string }[]
+  ) {
+    await this.db.evaluatedAssetTrait.createMany({ data });
   }
 }
