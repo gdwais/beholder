@@ -10,6 +10,7 @@ const Cors = require("fastify-cors");
 
 import ping from "./routes/ping";
 import traitsRoute from "./routes/traits";
+import evaluatorRoutes from "./routes/evaluator.routes";
 
 import dotenv from "dotenv";
 
@@ -31,6 +32,7 @@ const buildApp = async (envFile: string): Promise<FastifyInstance> => {
 
   app.register(ping, { prefix: "/api/ping" });
   app.register(traitsRoute, { prefix: "/api/traits" });
+  app.register(evaluatorRoutes, { prefix: "/api/evaluator" });
   const port = process.env.PORT || "3005";
 
   const listenOptions = {

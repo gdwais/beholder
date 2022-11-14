@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Nft } from "../types";
-import apiClient from "../services/client";
 
 import { Button, Grid, Paper } from "@mui/material";
 import { ImageCard } from "./ImageCard";

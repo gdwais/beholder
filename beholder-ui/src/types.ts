@@ -7,5 +7,4 @@ export type Nft = {
   mint: string;
   name: string;
   image: string;
-  traits: Trait[];
 };
