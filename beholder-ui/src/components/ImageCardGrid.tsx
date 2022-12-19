@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import { Nft } from "../types";
-
-import { Button, Grid, Paper } from "@mui/material";
-import { ImageCard } from "./ImageCard";
 import { setTraits, useAppDispatch, useAppSelector } from "../store";
 import { getPredictionsByTrait, getTraits } from "../services";
 
@@ -42,7 +39,7 @@ export const ImageCardGrid = () => {
 
   return (
     <>
-      <div className="flex flex-row px-10">
+      {/* <div className="flex flex-row px-10">
         {traits.length > 0 &&
           traits.map((trait, index) => {
             return (
@@ -67,11 +64,11 @@ export const ImageCardGrid = () => {
               mint={nft.mint}
               image={nft.image}
               name={nft.name}
-              traits={nft.traits}
+              traits={nft.}
             />
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
     </>
   );
 };
