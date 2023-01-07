@@ -3,8 +3,12 @@ export type Trait = {
   percentage: number;
 };
 
-export type Nft = {
+export type Asset = {
   mint: string;
   name: string;
   image: string;
+};
+
+export type User = {
+  wallet: string;
 };

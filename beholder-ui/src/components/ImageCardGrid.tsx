@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import { Nft } from "../types";
-import { setTraits, useAppDispatch, useAppSelector } from "../store";
+import { Asset } from "../types";
+import { useAppDispatch, useAppSelector } from "../store";
 import { getPredictionsByTrait, getTraits } from "../services";
 
 export const ImageCardGrid = () => {
   const dispatch = useAppDispatch();
 
-  const [nfts, setNfts] = useState<Nft[]>([]);
-  const traits = useAppSelector((state) => state.app.traits);
+  const [nfts, setNfts] = useState<Asset[]>([]);
 
   const [selectedTrait, setSelectedTrait] = useState<string | undefined>(
     undefined
@@ -31,7 +30,7 @@ export const ImageCardGrid = () => {
   useEffect(() => {
     const loadTraits = async () => {
       const response = await getTraits();
-      dispatch(setTraits(response));
+      //dispatch(setTraits(response));
     };
 
     loadTraits();
