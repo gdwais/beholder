@@ -21,3 +21,9 @@ export type ExpandedAsset = Asset & {
   processedTraits: ProcessedAssetTrait[];
   evaluatedAssets: ExpandedEvaluatedAsset[];
 };
+
+export type Nft = {
+  mint: string;
+  image: string;
+  name: string;
+};

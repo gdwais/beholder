@@ -1,5 +1,5 @@
 import { Asset, PrismaClient } from "@prisma/client";
-import { ExpandedAsset } from "../types";
+import { ExpandedAsset, Nft } from "../types";
 
 export class AssetRepository {
   private db: PrismaClient;
@@ -103,5 +103,28 @@ export class AssetRepository {
     data: { evaluatedAssetId: string; value: string }[]
   ) {
     await this.db.evaluatedAssetTrait.createMany({ data });
+  }
+
+  async saveProcessedTraits(
+    mint: string,
+    data: { mint: string; trait: string; percentage: number }[]
+  ): Promise<boolean | any> {
+    await this.db.processedAssetTrait.deleteMany({ where: { mint } });
+
+    try {
+      await this.db.processedAssetTrait.createMany({ data });
+      return true;
+    } catch (err: any) {
+      console.error(err);
+      return false;
+    }
+  }
+
+  async saveAssets(data: Nft[]) {
+    await this.db.asset.createMany({ data });
+  }
+
+  async getAssets(): Promise<Asset[]> {
+    return (await this.db.asset.findMany()) as Asset[];
   }
 }

@@ -13,6 +13,13 @@ const evaluatorRoutes = (
   _: any,
   done: () => void
 ) => {
+  fastify.get("/", async (request: FastifyRequest, reply) => {
+    const result = await assetService.getAll();
+
+    reply.statusCode = 200;
+    reply.send(result);
+  });
+
   fastify.get(
     "/:walletId/random",
     async (
