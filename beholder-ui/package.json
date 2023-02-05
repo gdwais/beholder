@@ -67,5 +67,8 @@
     "autoprefixer": "^10.4.9",
     "postcss": "^8.4.16",
     "tailwindcss": "^3.1.8"
+  },
+  "browser": {
+    "crypto": false
   }
 }

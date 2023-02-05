@@ -4,12 +4,18 @@ Image classification for NFTs using ML
 
 ## Ideas for expansion
 
-### api
+### runner
 
-- endpoint for traits
-- endpoint for specific mint (get similar nfts or images)
-- endpoint for url (get similar nfts or images)
-- endpoint for saving predictions
+basic script useful for running cli commands
+
+#### options
+
+`yarn runner run`
+run - runs the evaluation manager run method
+`yarn runner dump`
+dump - runs the evaluation manager dump method
+
+### api
 
 ###
 

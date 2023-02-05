@@ -16,14 +16,14 @@ services:
     ports:
       - "5001:5432"
       - "5432:5432"
-  db-test:
-    image: "postgres:13.5-alpine3.15"
-    environment:
-      - PGDATA=/var/lib/postgresql/data/pgdata/beholder-db-test
-      - POSTGRES_DB=beholder-db-test
-      - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=password
-    volumes:
-      - db:/var/lib/postgresql/data/pgdata/beholder-db-test
-    ports:
-      - "5433:5432"
+  # db-test:
+  #   image: "postgres:13.5-alpine3.15"
+  #   environment:
+  #     - PGDATA=/var/lib/postgresql/data/pgdata/beholder-db-test
+  #     - POSTGRES_DB=beholder-db-test
+  #     - POSTGRES_USER=admin
+  #     - POSTGRES_PASSWORD=password
+  #   volumes:
+  #     - db:/var/lib/postgresql/data/pgdata/beholder-db-test
+  #   ports:
+  #     - "5433:5432"
