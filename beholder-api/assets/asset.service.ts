@@ -42,8 +42,6 @@ export class AssetService {
     walletId: string,
     evaluationTraits: string[]
   ): Promise<void> {
-    await this.repo.deleteEvaluationAsset(mint, walletId);
-
     const evaluationAsset = await this.repo.saveEvaluationAsset(mint, walletId);
 
     if (evaluationTraits.length > 0) {

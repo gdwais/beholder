@@ -35,16 +35,16 @@ const evaluatorRoutes = (
   );
 
   fastify.post(
-    "/evaluate",
+    "/save-collected-traits",
     async (
       request: FastifyRequest<{
-        Body: { mint: string; walletId: string; evaluationTraits: string[] };
+        Body: { mint: string; walletId: string; collectedTraits: string[] };
       }>,
       reply
     ) => {
-      const { mint, walletId, evaluationTraits } = request.body;
+      const { mint, walletId, collectedTraits } = request.body;
 
-      await assetService.saveEvaluationAsset(mint, walletId, evaluationTraits);
+      await assetService.saveEvaluationAsset(mint, walletId, collectedTraits);
 
       reply.statusCode = 200;
       reply.send(true);

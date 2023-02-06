@@ -11,12 +11,12 @@ import {
   createDefaultAddressSelector,
 } from "@solana-mobile/wallet-adapter-mobile";
 import { Cluster } from "@solana/web3.js";
-import {
-  PhantomWalletAdapter,
-  SlopeWalletAdapter,
-  SolflareWalletAdapter,
-  BraveWalletAdapter,
-} from "@solana/wallet-adapter-wallets";
+// import {
+//   PhantomWalletAdapter,
+//   SlopeWalletAdapter,
+//   SolflareWalletAdapter,
+//   BraveWalletAdapter,
+// } from "@solana/wallet-adapter-wallets";
 import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 import { WalletProvider } from "@solana/wallet-adapter-react";
 
@@ -36,10 +36,10 @@ export const App = () => {
           return;
         },
       }),
-      new PhantomWalletAdapter(),
-      new BraveWalletAdapter(),
-      new SlopeWalletAdapter(),
-      new SolflareWalletAdapter({ network: network as WalletAdapterNetwork }),
+      // new PhantomWalletAdapter(),
+      // new BraveWalletAdapter(),
+      // new SlopeWalletAdapter(),
+      // new SolflareWalletAdapter({ network: network as WalletAdapterNetwork }),
     ];
   }, [network]);
 

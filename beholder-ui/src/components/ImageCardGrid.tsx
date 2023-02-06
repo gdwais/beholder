@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Asset } from "../types";
 import { useAppDispatch, useAppSelector } from "../store";
-import { getPredictionsByTrait, getTraits } from "../services";
+import { getPredictionsByTrait } from "../services";
+
+import { getTraits } from "../services/evaluation-service";
 
 export const ImageCardGrid = () => {
   const dispatch = useAppDispatch();

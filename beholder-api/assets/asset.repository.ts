@@ -68,7 +68,7 @@ export class AssetRepository {
       { mint: string }[]
     >`SELECT mint
       FROM assets
-      WHERE mint NOT IN (SELECT mint FROM evaluated_asset_traits WHERE wallet_id = ${walletId})
+      WHERE mint NOT IN (SELECT mint FROM evaluated_assets WHERE wallet_id = ${walletId})
       ORDER BY RANDOM()
       LIMIT 1;`;
 
@@ -77,17 +77,6 @@ export class AssetRepository {
     }
 
     return;
-  }
-
-  public async deleteEvaluationAsset(mint: string, walletId: string) {
-    await this.db.evaluatedAsset.delete({
-      where: {
-        mint_walletId: {
-          walletId,
-          mint,
-        },
-      },
-    });
   }
 
   public async saveEvaluationAsset(mint: string, walletId: string) {
